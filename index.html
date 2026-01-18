@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PsPing - Complete Reference & Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f6f8;
+            color: #222;
+        }
+        header {
+            background: #005fb8;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        h2 {
+            color: #005fb8;
+            margin-top: 40px;
+        }
+        pre {
+            background: #eee;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        .copy-btn {
+            background: #005fb8;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+        }
+
+        /* Simple network diagram */
+        .diagram {
+            margin: 30px auto;
+            text-align: center;
+        }
+        .node {
+            display: inline-block;
+            padding: 15px 25px;
+            background: #005fb8;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .arrow {
+            display: inline-block;
+            margin: 0 15px;
+            font-size: 28px;
+            color: #005fb8;
+        }
+
+        .example-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>PsPing - Complete Reference</h1>
+    <p>Latency • Bandwidth • TCP • UDP • Echo Tests</p>
+</header>
+
+<div class="container">
+
+    <h2>What is PsPing?</h2>
+    <p>
+        PsPing is a powerful network testing tool from Microsoft Sysinternals. 
+        It supports ICMP ping, TCP/UDP latency tests, port reachability checks, and bandwidth measurement.
+    </p>
+
+    <h2>Visual Overview</h2>
+    <div class="diagram">
+        <span class="node">Your PC</span>
+        <span class="arrow">⟶</span>
+        <span class="node">Target Host</span>
+    </div>
+    <p style="text-align:center;">PsPing measures latency, bandwidth, and connectivity between these two points.</p>
+
+    <h2>Download PsPing</h2>
+    <p>
+        Official Microsoft link:<br>
+        <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/psping" target="_blank">
+            https://learn.microsoft.com/en-us/sysinternals/downloads/psping
+        </a>
+    </p>
+
+    <h2>Basic Syntax</h2>
+    <pre>psping [options] target</pre>
+
+    <h2>Examples</h2>
+
+    <div class="example-box">
+        <h3>1. Standard ICMP Ping</h3>
+        <pre id="cmd1">psping google.com</pre>
+        <button class="copy-btn" onclick="copy('cmd1')">Copy</button>
+        <p>Equivalent to Windows <code>ping</code>, but with more control.</p>
+    </div>
+
+    <div class="example-box">
+        <h3>2. TCP Port Ping</h3>
+        <pre id="cmd2">psping google.com:443</pre>
+        <button class="copy-btn" onclick="copy('cmd2')">Copy</button>
+        <p>Tests if a TCP port is reachable and measures latency.</p>
+    </div>
+
+    <div class="example-box">
+        <h3>3. Continuous Ping</h3>
+        <pre id="cmd3">psping -t google.com</pre>
+        <button class="copy-btn" onclick="copy('cmd3')">Copy</button>
+        <p>Runs until you press CTRL+C.</p>
+    </div>
+
+    <div class="example-box">
+        <h3>4. High‑Volume Latency Test</h3>
+        <pre id="cmd4">psping -n 200 -i 0.2 google.com</pre>
+        <button class="copy-btn" onclick="copy('cmd4')">Copy</button>
+        <p>Sends 200 pings at 200ms intervals.</p>
+    </div>
+
+    <div class="example-box">
+        <h3>5. Bandwidth Test (Server Mode)</h3>
+        <pre id="cmd5">psping -b -s 5000</pre>
+        <button class="copy-btn" onclick="copy('cmd5')">Copy</button>
+        <p>Starts a bandwidth test server on port 5000.</p>
+    </div>
+
+    <div class="example-box">
+        <h3>6. Bandwidth Test (Client Mode)</h3>
+        <pre id="cmd6">psping -b 192.168.1.10:5000</pre>
+        <button class="copy-btn" onclick="copy('cmd6')">Copy</button>
+        <p>Measures throughput between two hosts.</p>
+    </div>
+
+    <div class="example-box">
+        <h3>7. UDP Latency Test</h3>
+        <pre id="cmd7">psping -u google.com:33434</pre>
+        <button class="copy-btn" onclick="copy('cmd7')">Copy</button>
+        <p>Useful for testing firewalls and VoIP paths.</p>
+    </div>
+
+    <h2>Useful Options</h2>
+    <ul>
+        <li><strong>-n</strong> number of iterations</li>
+        <li><strong>-i</strong> interval between pings</li>
+        <li><strong>-b</strong> bandwidth test mode</li>
+        <li><strong>-q</strong> quiet mode</li>
+        <li><strong>-t</strong> continuous mode</li>
+        <li><strong>-u</strong> use UDP instead of TCP</li>
+    </ul>
+
+</div>
+
+<footer>
+    pspsing.com — Simple PsPing Reference • Not affiliated with Microsoft
+</footer>
+
+<script>
+function copy(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text);
+    alert("Copied to clipboard!");
+}
+</script>
+
+</body>
+</html>
